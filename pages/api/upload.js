@@ -1,9 +1,8 @@
 import { createRouter } from 'next-connect'
 import multer from 'multer'
-import {console} from "next/dist/compiled/@edge-runtime/primitives";
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai')
 
-const API_KEY = "AIzaSyD5mMgv-P3JMgGIhxoYN9HiogHmeX_2E2s"
+const API_KEY = process.env.GEMINI_API_KEY
 const MODEL_NAME = 'gemini-pro-vision'
 
 const upload = multer({
@@ -84,7 +83,6 @@ router.post(async (req, res) => {
             return res.status(200).json({ result: responseText })
         }
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ error: 'Internal Server Error' })
     }
 })
